@@ -4,10 +4,11 @@ import { Provider } from "react-redux";
 import registerServiceWorker from './registerServiceWorker';
 import AppRouter from './routers/Approuter';
 import configureStore from './store/configureStore';
-import {addExpence} from './actions/expences';
+import { startSetExpences } from './actions/expences';
 import {setTextFilter} from './actions/filters';
 import getVisibleExpenses from './selectors/expences';
-
+import "react-dates/lib/css/_datepicker.css";
+import './firebase/firebase';
 const store = configureStore();
 
 const jsx = (
@@ -15,5 +16,9 @@ const jsx = (
     <AppRouter />
     </Provider>
 )
-ReactDOM.render(jsx, document.getElementById('root'));
+ReactDOM.render(<p>Loading ....</p>, document.getElementById('root'));
+
+store.dispatch(startSetExpences()).then(() => {
+    ReactDOM.render(jsx, document.getElementById('root'));
+});
 registerServiceWorker();
